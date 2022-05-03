@@ -1,22 +1,27 @@
-import { useLocation, useNavigate, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "../auth/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { useLocation, Navigate } from "react-router-dom";
+import { login } from "../action";
 
 export default function LoginPage() {
-  const auth = useAuth();
-  const navigate = useNavigate();
+  const user = useSelector(({ user }) => user);
+
+  const dispatch = useDispatch();
+
   const location = useLocation();
   const from = location.state?.from.pathname || "/";
 
-  if (auth.user) {
-    return <Navigate to={from} />;
+  if (user.isLogin) {
+    return <Navigate to={from} replace={true} />;
   }
 
+  const { err, loading } = user;
+
   const submit = (e) => {
+    e.preventDefault();
     const formData = new FormData(e.currentTarget);
     const username = formData.get("username");
-    auth.signin({ username }, () => {
-      navigate(from, { replace: true });
-    });
+
+    dispatch(login({ username }));
   };
 
   return (
@@ -24,7 +29,8 @@ export default function LoginPage() {
       <h1>LoginPage</h1>
       <form onSubmit={submit}>
         <input type="text" name="username" />
-        <button type="submit">login</button>
+        <button type="submit">{loading ? "loading..." : "login"}</button>
+        <p className="red"> {err.msg}</p>
       </form>
     </div>
   );

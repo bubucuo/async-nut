@@ -1,11 +1,12 @@
 import { Navigate, useLocation } from "react-router-dom";
-import { useAuth } from "../auth/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export default function RequiredAuth({ children }) {
-  const auth = useAuth();
+  const user = useSelector(({ user }) => user);
+
   const location = useLocation();
 
-  if (!auth.user) {
+  if (!user.isLogin) {
     return <Navigate to={"/login"} state={{ from: location }} replace={true} />;
   }
 

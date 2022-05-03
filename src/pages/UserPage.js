@@ -1,17 +1,21 @@
 import { useNavigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "../auth/auth";
+import { useDispatch, useSelector } from "react-redux";
+import { logout } from "../action";
+import store from "../store";
 
 export default function UserPage() {
-  const auth = useAuth();
-  const navigate = useNavigate();
+  const user = useSelector(({ user }) => user);
+  const dispatch = useDispatch();
 
   return (
     <div>
       <h1>UserPage</h1>
-      <p>{auth.user?.username}</p>
+      <p>name: {user?.userInfo?.username}</p>
+      <p>score: {user?.userInfo?.score}</p>
+
       <button
         onClick={() => {
-          auth.signout(() => navigate("/login"));
+          dispatch(logout());
         }}
       >
         退出登录

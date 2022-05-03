@@ -11,30 +11,27 @@ import {
 import LoginPage from "./pages/LoginPage";
 import RequiredAuth from "./auth/RequiredAuth";
 import UserPage from "./pages/UserPage";
-import { AuthProvider } from "./auth/auth";
 
 export default function App(props) {
   return (
     <div className="app">
-      <AuthProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route
-                path="user"
-                element={
-                  <RequiredAuth>
-                    <UserPage />
-                  </RequiredAuth>
-                }
-              />
-              <Route path="login" element={<LoginPage />} />
-              <Route path="*" element={<NoMatch />} />
-            </Route>
-          </Routes>
-        </Router>
-      </AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+            <Route path="/" element={<Home />} />
+            <Route
+              path="user"
+              element={
+                <RequiredAuth>
+                  <UserPage />
+                </RequiredAuth>
+              }
+            />
+            <Route path="login" element={<LoginPage />} />
+            <Route path="*" element={<NoMatch />} />
+          </Route>
+        </Routes>
+      </Router>
     </div>
   );
 }
