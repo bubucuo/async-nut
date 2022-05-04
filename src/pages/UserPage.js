@@ -1,24 +1,21 @@
-import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { logout } from "../action";
-import store from "../store";
+import { logout } from "../action/user";
 
-export default function UserPage() {
-  const user = useSelector(({ user }) => user);
+export default function UserPage(props) {
   const dispatch = useDispatch();
+  const user = useSelector(({ user }) => user);
 
   return (
     <div>
-      <h1>UserPage</h1>
-      <p>name: {user?.userInfo?.username}</p>
-      <p>score: {user?.userInfo?.score}</p>
-
+      <h3>UserPage</h3>
+      <p>{user?.userInfo?.username}</p>
+      <p>{user?.userInfo?.score}</p>
       <button
         onClick={() => {
           dispatch(logout());
         }}
       >
-        退出登录
+        logout
       </button>
     </div>
   );

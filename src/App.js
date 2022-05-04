@@ -7,9 +7,9 @@ import {
   Link,
   Outlet,
 } from "react-router-dom";
+import RequiredAuth from "./auth/RequiredAuth";
 
 import LoginPage from "./pages/LoginPage";
-import RequiredAuth from "./auth/RequiredAuth";
 import UserPage from "./pages/UserPage";
 
 export default function App(props) {
@@ -18,7 +18,7 @@ export default function App(props) {
       <Router>
         <Routes>
           <Route path="/" element={<Layout />}>
-            <Route path="/" element={<Home />} />
+            <Route index element={<Home />} />
             <Route
               path="user"
               element={
