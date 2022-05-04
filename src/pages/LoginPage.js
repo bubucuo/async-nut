@@ -13,15 +13,23 @@ export default function LoginPage(props) {
     return <Navigate to={from} replace={true} />;
   }
 
-  const submit = () => {
-    dispatch(login({ username: "asasas" }));
+  const submit = (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const username = formData.get("username");
+    dispatch(login({ username }));
   };
 
   return (
     <div>
       <h3>LoginPage</h3>
 
-      <button onClick={submit}>login</button>
+      <form onSubmit={submit}>
+        <input type="text" name="username" />
+        <button type="submit">{user.loading ? "loading..." : "login"}</button>
+      </form>
+
+      <p className="red">{user.err.msg}</p>
     </div>
   );
 }
