@@ -1,6 +1,10 @@
 import proc from "./proc";
 
-export default function runSaga({ getState, dispatch }, saga, ...args) {
+export default function runSaga(
+  { channel, getState, dispatch },
+  saga,
+  ...args
+) {
   const iterator = saga(...args);
-  proc({ getState, dispatch }, iterator);
+  proc({ channel, getState, dispatch }, iterator);
 }
