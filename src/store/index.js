@@ -4,8 +4,8 @@ import { createStore, combineReducers, applyMiddleware } from "redux";
 import createSagaMiddleware from "../saga-nut";
 
 // !1. 创建要运行的saga
-import loginSaga from "../action/loginSaga";
-// import rootSaga from "../action/rootSaga";
+// import loginSaga from "../action/loginSaga";
+import rootSaga from "../action/rootSaga";
 import { loginReducer } from "./loginReducer";
 
 // !2. 创建saga中间件
@@ -18,6 +18,6 @@ const store = createStore(
 );
 
 // !4. 运行saga
-sagaMiddleware.run(loginSaga);
+sagaMiddleware.run(rootSaga);
 
 export default store;
